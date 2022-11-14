@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+int isbalanced(char *A)
+{
+    int c = 0;
+    char *ptr;
+    if(*A == ')') return 0;
+    for(ptr = A; *ptr != '\0' ; ptr++)
+    {
+        if(*ptr == '(')
+            c++;
+        if(*ptr == ')')
+            c--;
+        if(c == -1)
+            return 0;
+    }
+    //printf("%i\n",c );
+    if (c ==0)
+        return 1;
+    return 0;
+}
+
+int isbalancedH(char *A, int c)
+{
+    if(c == -1) return 0;
+    if(*A == '\0' && c != 0) return 0;
+    if(*A == '(') return isbalancedH(A+1,++c);
+    if(*A == ')') return isbalancedH(A+1,--c);;
+    return 1;
+}
+
+int isbalancedREC(char * n)
+{
+    return isbalancedH(n , 0);
+}
+
+
+int main()
+{
+
+    printf("%i",isbalancedREC("(())"));
+
+  return 0;
+}
